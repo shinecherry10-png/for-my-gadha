@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Love Letter for My Hubby ❤ | From Simmu</title>
+
+  <!-- Google Fonts & Tailwind CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Dancing+Script:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-cream: #faf6f0;
+      --envelope-base: #f1cfd1;
+      --wax-red: #c0262d;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #fdf2f4 0%, #faecef 45%, #f4e4e9 100%);
+      color: #3b272c;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .font-serif-title { font-family: 'Playfair Display', serif; }
+    .font-letter { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .font-handwriting { font-family: 'Dancing Script', cursive; }
+    .font-note { font-family: 'Caveat', cursive; }
+
+    /* Ambient Floating Hearts */
+    .ambient-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10;
+      animation: floatParticles 9s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatParticles {
+      0% {
+        transform: translateY(105vh) scale(0.6) rotate(0deg);
+        opacity: 0.2;
+      }
+      50% { opacity: 0.8; }
+      100% {
+        transform: translateY(-15vh) scale(1.1) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .envelope-perspective {
+      perspective: 1200px;
+    }
+
+    .envelope-box {
+      width: min(92vw, 460px);
+      height: 310px;
+      position: relative;
+      background: #f1cfd1;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 25px 50px -12px rgba(136, 19, 24, 0.25), 0 0 0 1px rgba(244, 63, 94, 0.15);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .flap-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      background: #e9bec2;
+      transform-origin: top;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s;
+      z-index: 5;
+    }
+
+    .flap-left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, 0 100%, 53% 53%);
+      background: #e3b0b5;
+      border-radius: 0 0 0 16px;
+      z-index: 4;
+    }
+
+    .flap-right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(100% 0, 100% 100%, 47% 53%);
+      background: #deb2b7;
+      border-radius: 0 0 16px 0;
+      z-index: 4;
+    }
+
+    .flap-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 100%, 100% 100%, 50% 48%);
+      background: #eec4c8;
+      border-radius: 0 0 16px 16px;
+      z-index: 4;
+    }
+
+    .letter-peek {
+      position: absolute;
+      top: 15px;
+      left: 6%;
+      width: 88%;
+      height: 260px;
+      background: #fffdfa;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: transform 0.9s cubic-bezier(0.34, 1.3, 0.64, 1);
+      z-index: 2;
+    }
+
+    .envelope-box.is-opened .flap-top {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-box.is-opened .letter-peek {
+      transform: translateY(-160px) scale(1.03);
+      z-index: 6;
+    }
+
+    .wax-seal-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      width: 68px;
+      height: 68px;
+      background: radial-gradient(circle at 35% 35%, #e11d48, #9f1239 85%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(159, 18, 57, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .wax-seal-btn:hover {
+      transform: translate(-50%, -40%) scale(1.08);
+      box-shadow: 0 12px 26px rgba(159, 18, 57, 0.6);
+    }
+
+    .envelope-box.is-opened .wax-seal-btn {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -40%) scale(0.5);
+    }
+
+    .parchment-sheet {
+      background: #fffefb;
+      background-image: 
+        radial-gradient(#ebdcd5 0.75px, transparent 0.75px), 
+        linear-gradient(to bottom, transparent, rgba(254, 242, 242, 0.4));
+      background-size: 20px 20px, 100% 100%;
+      box-shadow: 
+        0 15px 35px -10px rgba(159, 18, 57, 0.12),
+        0 0 0 1px rgba(244, 63, 94, 0.12),
+        inset 0 0 60px rgba(253, 230, 238, 0.25);
+    }
+
+    .polaroid {
+      background: #ffffff;
+      padding: 10px 10px 18px 10px;
+      box-shadow: 0 10px 25px -6px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 6px;
+      transition: all 0.35s ease;
+      position: relative;
+    }
+    .polaroid:hover {
+      transform: translateY(-6px) scale(1.02) !important;
+      box-shadow: 0 18px 30px -8px rgba(225, 29, 72, 0.22);
+      z-index: 20;
+    }
+
+    .washi-tape {
+      position: absolute;
+      top: -10px;
+      left: 36%;
+      width: 75px;
+      height: 22px;
+      background: rgba(254, 215, 215, 0.85);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      transform: rotate(-3deg);
+      border-left: 2px dashed rgba(244, 63, 94, 0.3);
+      border-right: 2px dashed rgba(244, 63, 94, 0.3);
+      z-index: 10;
+    }
+
+    .photo-placeholder {
+      background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #be123c;
+      border: 2px dashed #fda4af;
+      cursor: pointer;
+    }
+
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+    }
+
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: #fae8eb; }
+    ::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
+  </style>
+</head>
+<body class="relative">
+
+  <!-- Ambient Floating Heart Particles -->
+  <div id="ambient-hearts-layer"></div>
+
+  <!-- FLOATING CONTROLS: Hidden on first page, appears only after letter is opened -->
+  <aside id="floatingControls" aria-label="Audio & Reading Controls" class="hidden fixed top-3 right-3 z-50 flex items-center gap-2 flex-wrap justify-end transition-opacity duration-500">
+    
+    <!-- Audio Player / Song Controller Pill -->
+    <div class="glass-pill px-3 py-1.5 rounded-full shadow-md text-xs sm:text-sm font-medium text-rose-800 flex items-center gap-2">
+      <button id="musicToggleBtn" onclick="toggleAudio()" class="hover:text-rose-950 flex items-center gap-1 active:scale-95 transition" title="Play / Pause Song">
+        <span id="musicIcon">🎵</span>
+        <span id="musicLabel" class="max-w-[130px] sm:max-w-[200px] truncate font-serif-title italic">Tum Se Hi • Jab We Met</span>
+      </button>
+      <button onclick="document.getElementById('audioFileInput').click()" class="bg-rose-100 hover:bg-rose-200 text-rose-800 px-2 py-0.5 rounded-full text-[11px] font-semibold transition" title="Upload audio file (MP3/M4A)">
+        Change 🎶
+      </button>
+    </div>
+
+    <!-- Hidden audio element & file picker -->
+    <input type="file" id="audioFileInput" accept="audio/*" class="hidden" onchange="handleAudioUpload(event)" />
+    <audio id="customAudioPlayer" loop class="hidden"></audio>
+
+    <!-- Fold Back Button -->
+    <button id="refoldBtn" onclick="refoldEnvelope()" class="glass-pill px-3 py-1.5 rounded-full shadow-md text-xs sm:text-sm font-medium text-rose-800 hover:bg-rose-50 transition active:scale-95">
+      <span>✉ Fold Back</span>
+    </button>
+  </aside>
+
+  <!-- 1. ENVELOPE STAGE (The Pristine Sealed Surprise View) -->
+  <main>
+  <section id="envelopeStage" class="min-h-screen flex flex-col items-center justify-center px-4 py-12 transition-opacity duration-700">
+    
+    <div class="text-center max-w-lg mb-8">
+      <span class="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-semibold tracking-widest uppercase mb-3">
+        Special Delivery • 6th October 💌
+      </span>
+      <h1 class="font-serif-title text-3xl sm:text-5xl font-bold text-rose-950">
+        You've Got A Love Letter
+      </h1>
+      <p class="text-rose-800/80 font-letter text-lg sm:text-xl italic mt-2">
+        To my Hubby, from your Simmu... with all her heart.
+      </p>
+    </div>
+
+    <!-- 3D Realistic Envelope -->
+    <div class="envelope-perspective">
+      <div id="envelope" class="envelope-box">
+        
+        <!-- Top Flap -->
+        <div class="flap-top"></div>
+
+        <!-- The Letter Card peek inside -->
+        <div class="letter-peek p-4 flex flex-col justify-between border border-rose-100">
+          <div class="flex justify-between items-start border-b border-rose-100 pb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-rose-400">Air Mail / Par Avion</span>
+            <span class="text-xs text-rose-500 font-bold">Oct 6, 🎂</span>
+          </div>
+          <div class="text-center my-auto">
+            <p class="font-handwriting text-2xl text-rose-700">My Hubby… My Gadha ❤️</p>
+            <p class="text-xs text-rose-800/70 mt-1 font-serif-title italic">"Because 6th October isn't just the day you were born..."</p>
+          </div>
+          <div class="text-right border-t border-rose-100 pt-1 text-xs text-rose-600 font-handwriting text-base">
+            — Simmu 🫶🏻
+          </div>
+        </div>
+
+        <!-- Side & Bottom Flaps -->
+        <div class="flap-left"></div>
+        <div class="flap-right"></div>
+        <div class="flap-bottom"></div>
+
+        <!-- Envelope Address Front Badge -->
+        <div class="absolute bottom-6 left-6 z-10 pointer-events-none">
+          <div class="font-note text-rose-950 text-xl leading-snug">
+            <p class="font-bold text-rose-900">To: My Gadha (My favourite person) ❤️</p>
+            <p class="text-rose-700/80 text-sm">Every chapter, choosing you.</p>
+          </div>
+        </div>
+
+        <!-- Stamp in top right corner -->
+        <div class="absolute top-4 right-4 z-10 pointer-events-none border-2 border-dashed border-rose-300 p-1.5 bg-rose-50/90 rounded text-center rotate-3 shadow-sm">
+          <span class="text-[10px] block font-bold text-rose-800">FOREVER</span>
+          <span class="text-xs">🕊❤️</span>
+        </div>
+
+        <!-- Wax Seal Button -->
+        <button id="waxSeal" onclick="breakSealAndOpen()" class="wax-seal-btn group" title="Break seal to open letter">
+          <div class="text-center">
+            <span class="text-lg block transition-transform group-hover:scale-125">💌</span>
+            <span class="text-[9px] uppercase tracking-wider font-bold block -mt-1">Open</span>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Instruction hint -->
+    <div id="tapHint" class="mt-10 flex flex-col items-center gap-2 cursor-pointer" onclick="breakSealAndOpen()">
+      <div class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 shadow-md text-rose-700 text-sm font-medium hover:bg-white transition animate-bounce">
+        <span>✨</span>
+        <span>Tap the wax seal to unseal & read</span>
+        <span>✨</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 2. UNFOLDED LETTER STAGE (The Reading Experience) -->
+  <section id="letterStage" class="hidden min-h-screen px-3 sm:px-6 py-10 transition-all duration-700 opacity-0">
+    
+    <!-- Top Sticky Table of Contents Navigation -->
+    <header class="sticky top-3 z-40 max-w-xl mx-auto mb-8">
+      <nav class="glass-pill rounded-full p-1.5 shadow-lg flex justify-between items-center text-xs sm:text-sm font-medium text-rose-900">
+        <a href="#section-main-letter" class="flex-1 text-center py-2 px-1 rounded-full hover:bg-rose-100 transition">💌 My Letter</a>
+        <a href="#section-what-i-love" class="flex-1 text-center py-2 px-1 rounded-full hover:bg-rose-100 transition">❤️️ What I Love</a>
+        <a href="#section-story-dreams" class="flex-1 text-center py-2 px-1 rounded-full hover:bg-rose-100 transition">💕 Our Story</a>
+        <a href="#section-forever" class="flex-1 text-center py-2 px-1 rounded-full hover:bg-rose-100 transition">🌙 Dreams</a>
+      </nav>
+    </header>
+
+    <!-- Main Parchment Paper Document -->
+    <article class="max-w-3xl mx-auto parchment-sheet rounded-3xl p-6 sm:p-14 border border-rose-200 shadow-2xl relative space-y-16">
+      
+      <!-- Vintage Letter Header Ribbon -->
+      <div class="text-center border-b-2 border-rose-200/70 pb-8 relative">
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-rose-100/80 text-rose-800 text-xs font-semibold uppercase tracking-widest mb-3">
+          <span>🌸</span> A Love Letter From Simmu <span>🌸</span>
+        </div>
+        <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-rose-950">
+          Happy Birthday, <br class="sm:hidden" />
+          <span class="font-handwriting text-4xl sm:text-6xl text-rose-600 block sm:inline mt-1">
+            My Hubby… My Gadha ❤️
+          </span>
+        </h2>
+        <p class="font-serif-title italic text-rose-800 text-sm sm:text-base mt-3 max-w-xl mx-auto">
+          "Because 6th October isn’t just the day you were born… it’s the day the person who would one day become my whole world came into this life." 🥹❤
+        </p>
+
+        <!-- Dynamic Song Badge -->
+        <div class="mt-4 flex justify-center">
+          <div onclick="document.getElementById('audioFileInput').click()" class="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-xs text-rose-700 cursor-pointer shadow-xs transition active:scale-95" title="Click to upload another song">
+            <span id="badgeIcon">🎶</span>
+            <span class="font-medium text-rose-600">Song:</span>
+            <span id="detectedSongTitle" class="font-semibold italic font-serif-title text-rose-900">Tum Se Hi • Jab We Met</span>
+            <span class="text-[10px] bg-rose-200/80 group-hover:bg-rose-300 text-rose-900 font-semibold px-2 py-0.5 rounded-full ml-1 transition">
+              Upload 🎵
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHOTO 1 (HERO): Birthday Boy Portrait (1000375932) -->
+      <div class="flex flex-col sm:flex-row items-center gap-6 justify-center bg-rose-50/50 p-5 rounded-2xl border border-rose-100">
+        <div class="polaroid rotate-1 shrink-0 w-52 sm:w-56" onclick="triggerSingleUpload('img-hero-1000375932')">
+          <div class="washi-tape"></div>
+          <div class="relative w-full h-64 rounded overflow-hidden">
+            <img id="img-hero-1000375932" data-photo-id="1000375932" data-fallback-title="My Hubby 🎂" data-fallback-subtitle="My Gadha smiling in shirt" src="1000375932.jpg" alt="My Gadha smiling" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+          </div>
+          <p class="font-handwriting text-center text-sm font-bold text-rose-800 mt-2">The Birthday Boy 🎂❤️</p>
+        </div>
+        <div class="text-center sm:text-left space-y-2">
+          <span class="text-xs uppercase tracking-widest text-rose-500 font-bold">To my favorite person</span>
+          <h3 class="font-serif-title text-2xl font-bold text-rose-950">My Hubby, my safe place.</h3>
+          <p class="font-letter text-xl text-rose-900/90 leading-relaxed italic">
+            "I know you say that you’re not really excited about your birthday, but I wish you could see yourself through my eyes for just a moment. Maybe then you’d understand why this day means so much to me."
+          </p>
+          <div class="pt-2 text-rose-600 font-note text-xl">
+            October 6th • The most special day in my universe 🎂✨
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SECTION 1: THE LETTER ================= -->
+      <section id="section-main-letter" class="scroll-mt-24 space-y-6 text-justify font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed">
+        <div class="flex items-center justify-center gap-2 py-2 text-rose-300">
+          <span>❦</span>
+          <span class="h-px w-16 bg-rose-200"></span>
+          <span class="text-rose-500">💌</span>
+          <span class="h-px w-16 bg-rose-200"></span>
+          <span>❦</span>
+        </div>
+
+        <p>
+          Because <strong>6th October</strong> isn’t just the day you were born… it’s the day the person who would one day become such an important part of my life came into this world. 🥹❤️
+        </p>
+
+        <p>
+          Sometimes I think about how randomly we met. We didn’t even know each other. It was just an ordinary evening in college when my friend decided to introduce me to you. He said, <em class="text-rose-900 font-semibold">“I’ll introduce you to one guy,”</em> and somehow that small, random moment became one of the most beautiful moments of my life.
+        </p>
+
+        <p>
+          You looked at me, I looked at you… and there was just something there. We were both shy, trying to act normal, while secretly wanting to know more about each other. And then slowly, one meeting became another. You started coming to my class, taking me out on little dates, and somehow our random conversations in the library became some of my favourite memories.
+        </p>
+
+        <!-- Quote Callout Card -->
+        <blockquote class="my-6 p-6 rounded-2xl bg-rose-100/60 border-l-4 border-rose-600 font-serif-title italic text-rose-950 text-xl sm:text-2xl leading-relaxed text-center">
+          "Looking back, it honestly feels like destiny quietly brought us together without either of us even knowing what was happening. ❤️"
+        </blockquote>
+
+        <p>
+          And then there was you—the person who took the first steps, who made me feel comfortable, who slowly became someone I could laugh with, talk to, annoy, trust and love.
+        </p>
+
+        <p class="text-rose-950 font-semibold">
+          My Gadha, I hope you know how deeply loved you are. Not just today, but every single day.
+        </p>
+
+        <p>
+          I love your smile. I love your nature. I love the way you care for me, the way you handle me when I’m being difficult, the way you understand the things I sometimes can't even explain properly. I love the little things you do that you probably don't even realise I notice. And most importantly, I love the way your presence makes me feel—safe, cared for and loved. 🫶🏻
+        </p>
+
+        <!-- PHOTOS 2 & 3: Couple Snapshot Polaroids (1000375930 & 1000375926) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8 not-prose">
+          <div class="polaroid -rotate-2 cursor-pointer" onclick="triggerSingleUpload('img-1000375930')">
+            <div class="washi-tape"></div>
+            <div class="relative w-full h-64 rounded overflow-hidden">
+              <img id="img-1000375930" data-photo-id="1000375930" data-fallback-title="My Gadha 🌸" data-fallback-subtitle="My Gadha smiling in classroom" src="1000375930.jpg" alt="My Gadha smiling in classroom" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+            </div>
+            <p class="font-handwriting text-center text-base text-rose-800 mt-2">My Gadha & that precious smile 🌸</p>
+          </div>
+          <div class="polaroid rotate-2 cursor-pointer" onclick="triggerSingleUpload('img-1000375926')">
+            <div class="washi-tape"></div>
+            <div class="relative w-full h-64 rounded overflow-hidden">
+              <img id="img-1000375926" data-photo-id="1000375926" data-fallback-title="Forever Us 🫶🏻" data-fallback-subtitle="Simmu & Hubby together" src="1000375926.jpg" alt="Simmu and her Hubby together" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+            </div>
+            <p class="font-handwriting text-center text-base text-rose-800 mt-2">Forever Us • My favourite person 🫶🏻</p>
+          </div>
+        </div>
+
+        <p>
+          You have become such a beautiful part of my life that I can't imagine my story without you in it.
+        </p>
+
+        <p>
+          My biggest wish isn't for us to have a perfect life. I just want us. I want us to keep choosing each other through every phase of life. I want to see you grow, achieve your dreams, become the person you want to be—and I want to be there beside you, cheering for you, supporting you, annoying you, caring for you and loving you through it all.
+        </p>
+
+        <p>
+          I want us to build each other instead of pulling each other down. I want us to look back one day and realise that we went through everything together—with no regrets, only memories, laughter, love and the comfort of knowing that we always had each other. ❤️
+        </p>
+
+        <!-- Birthday Wishes Wishlist Box -->
+        <div class="my-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-rose-50 via-pink-50 to-amber-50/50 border border-rose-200 space-y-3 font-medium text-rose-950 shadow-inner">
+          <p class="font-serif-title font-bold text-lg sm:text-xl text-rose-900 border-b border-rose-200/80 pb-2">
+            So on your birthday, I don't just wish you happiness:
+          </p>
+          <div class="space-y-2 text-lg sm:text-xl font-letter">
+            <p class="flex items-start gap-2.5">
+              <span class="text-rose-500 shrink-0">✨</span>
+              <span>I wish you a life that makes you proud of yourself.</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <span class="text-rose-500 shrink-0">✨</span>
+              <span>I wish you dreams that come true.</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <span class="text-rose-500 shrink-0">✨</span>
+              <span>I wish you peace when life gets difficult.</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <span class="text-rose-500 shrink-0">✨</span>
+              <span>And I wish that, through every chapter, I get to be beside you.</span>
+            </p>
+          </div>
+        </div>
+
+        <p>
+          And if someday you forget how special you are, come back and read this again.
+        </p>
+
+        <p class="font-serif-title italic text-2xl font-bold text-rose-800 text-center py-2">
+          Because your Simmu will always remind you. ❤️
+        </p>
+
+        <!-- Signature Block -->
+        <div class="p-6 rounded-2xl bg-white/70 border border-rose-200/70 space-y-2">
+          <p class="font-serif-title text-xl text-rose-950 font-bold">Happy Birthday, my Hubby. 🎂❤️</p>
+          <ul class="text-base sm:text-lg text-rose-900 space-y-0.5 font-sans">
+            <li>• My favourite person.</li>
+            <li>• My Gadha.</li>
+            <li>• My safe place.</li>
+            <li>• And hopefully, my forever. 🫶🏻</li>
+          </ul>
+          <p class="font-letter italic text-xl text-rose-800 font-semibold pt-2">
+            I love you. More than these words can ever properly explain. ❤️
+          </p>
+          <div class="text-right pt-2">
+            <span class="font-handwriting text-3xl sm:text-4xl text-rose-600 block">— Your Simmu 🥹❤️</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 2: WHAT I LOVE MOST ABOUT YOU ================= -->
+      <section id="section-what-i-love" class="scroll-mt-24 space-y-8 pt-10 border-t-2 border-rose-100">
+        <div class="flex items-center gap-3 border-l-4 border-rose-500 pl-4 py-1">
+          <span class="text-2xl">❤️</span>
+          <div>
+            <h3 class="font-serif-title text-2xl sm:text-3xl font-bold text-rose-950">What I Love Most About You</h3>
+            <span class="text-xs uppercase tracking-widest text-rose-500 font-bold">From the bottom of my heart</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <!-- PHOTO 4: Sweet Snuggle Polaroid (1000375933) -->
+          <div class="md:col-span-5 flex justify-center">
+            <div class="polaroid rotate-1 w-full max-w-xs shadow-xl cursor-pointer" onclick="triggerSingleUpload('img-1000375933')">
+              <div class="washi-tape"></div>
+              <div class="relative w-full h-80 rounded overflow-hidden">
+                <img id="img-1000375933" data-photo-id="1000375933" data-fallback-title="My Safe Place 🫶🏻" data-fallback-subtitle="Sweet cozy moment" src="1000375933.jpg" alt="Simmu and Hubby sweet moment" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+              </div>
+              <p class="font-handwriting text-center text-sm font-bold text-rose-800 mt-2">
+                My safe place. The comfort in your arms 🫶🏻
+              </p>
+            </div>
+          </div>
+
+          <div class="md:col-span-7 space-y-4 font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed text-justify">
+            <p>
+              What I love most about you isn't just one thing. It's you as a person. ❤️
+            </p>
+            <p>
+              I love your nature, the way you are genuinely you. I love your smile, because somehow seeing you smile makes me smile too.
+            </p>
+            <p class="font-serif-title italic text-rose-900 font-semibold text-2xl">
+              "But most of all, I love the way you love me."
+            </p>
+            <p>
+              I love the way you care about me, the way you handle my moods, the way you understand me even when I don't know how to explain what's going on in my head. I love how you notice little things, how you make me feel cared for, and how your presence itself can make a bad day feel a little better.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="space-y-4 font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed text-justify bg-rose-50/70 p-6 sm:p-8 rounded-2xl border border-rose-200">
+          <p>
+            I love that with you, I don't always have to find the perfect words. Somehow, you just understand.
+          </p>
+          <p class="font-serif-title italic text-rose-900 font-bold text-2xl">
+            And maybe that's what I love the most—the way you make me feel like I don't have to face everything alone. 🫶🏻
+          </p>
+          <p>
+            You're not perfect, and neither am I. But I don't want perfect.
+          </p>
+          <div class="text-center py-2">
+            <span class="font-handwriting text-3xl sm:text-4xl text-rose-600 block">
+              "I want you. My Hubby. My Gadha. ❤️"
+            </span>
+          </div>
+          <p>
+            And out of all the things life could have randomly brought my way that evening in college, I'm really, really grateful that it brought you to me. 🥹❤️
+          </p>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 3: OUR STORY & HOW WE MET ================= -->
+      <section id="section-story-dreams" class="scroll-mt-24 space-y-8 pt-10 border-t-2 border-rose-100">
+        <div class="flex items-center gap-3 border-l-4 border-rose-500 pl-4 py-1">
+          <span class="text-2xl">💕</span>
+          <div>
+            <h3 class="font-serif-title text-2xl sm:text-3xl font-bold text-rose-950">Our Story & How We Met</h3>
+            <span class="text-xs uppercase tracking-widest text-rose-500 font-bold">The college evening that started it all</span>
+          </div>
+        </div>
+
+        <div class="font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed text-justify space-y-4">
+          <p>
+            Our story is probably one of those stories that neither of us planned, but somehow life had already written for us. ❤️
+          </p>
+          <p>
+            We were just two people in the same college who didn't even know each other. And then, on one completely ordinary evening, a random little decision changed everything.
+          </p>
+          <p>
+            My friend was going to your hostel and suddenly decided to introduce me to you. He brought me over and said, <span class="font-serif-title italic font-bold text-rose-700">“Simmu, this is my friend…”</span> And that was it… that's where our story began. 🥹
+          </p>
+          <p>
+            I still remember that first moment. You looked at me, I looked at you, and there was this little spark that neither of us really knew what to do with. 😂❤️ We were both shy, trying to act completely normal, but somewhere underneath that shyness, we both wanted to know each other a little more.
+          </p>
+        </div>
+
+        <!-- PHOTOS 5, 6, 7: College Snapshots (1000375929, 1000375931, 1000375928) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-8 not-prose">
+          <div class="polaroid -rotate-2 cursor-pointer" onclick="triggerSingleUpload('img-1000375929')">
+            <div class="washi-tape"></div>
+            <div class="relative w-full h-56 rounded overflow-hidden">
+              <img id="img-1000375929" data-photo-id="1000375929" data-fallback-title="Class Benches 📚" data-fallback-subtitle="Waiting by my classroom" src="1000375929.jpg" alt="My Gadha on college bench" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+            </div>
+            <p class="font-handwriting text-center text-xs sm:text-sm text-rose-800 mt-2">Coming to my class & waiting by benches 📚</p>
+          </div>
+          <div class="polaroid rotate-1 cursor-pointer" onclick="triggerSingleUpload('img-1000375931')">
+            <div class="washi-tape"></div>
+            <div class="relative w-full h-56 rounded overflow-hidden">
+              <img id="img-1000375931" data-photo-id="1000375931" data-fallback-title="Cute Desk Nap 🥺" data-fallback-subtitle="Sleeping peacefully in class" src="1000375931.jpg" alt="My Gadha sleeping in class on desk" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+            </div>
+            <p class="font-handwriting text-center text-xs sm:text-sm text-rose-800 mt-2">Sleeping peacefully on the desk 🥺</p>
+          </div>
+          <div class="polaroid -rotate-1 cursor-pointer" onclick="triggerSingleUpload('img-1000375928')">
+            <div class="washi-tape"></div>
+            <div class="relative w-full h-56 rounded overflow-hidden">
+              <img id="img-1000375928" data-photo-id="1000375928" data-fallback-title="Auto Rides 🛺" data-fallback-subtitle="Auto rides & little dates" src="1000375928.jpg" alt="My Gadha smiling in auto ride" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+            </div>
+            <p class="font-handwriting text-center text-xs sm:text-sm text-rose-800 mt-2">Our auto rides & little dates 🛺✨</p>
+          </div>
+        </div>
+
+        <div class="font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed text-justify space-y-4">
+          <p>
+            And then, slowly, you started becoming a part of my everyday life.
+          </p>
+          <p>
+            You came to my class. You took me on little dates. We sat together and talked for hours in the library. We found little places around college that became <em>our</em> places. We laughed, talked, teased each other, spent time together—and without even realising it, a stranger became someone I couldn't imagine my days without.
+          </p>
+          <p>
+            That's what makes our story so special to me.
+          </p>
+          <div class="text-center py-4 bg-rose-100/50 rounded-2xl border border-rose-200">
+            <p class="font-serif-title italic font-bold text-2xl sm:text-3xl text-rose-900">
+              "It wasn't planned. It wasn't something either of us went looking for."
+            </p>
+            <p class="font-handwriting text-3xl sm:text-4xl text-rose-600 mt-2">
+              We just happened to find each other. ❤️
+            </p>
+            <p class="text-sm font-sans text-rose-800 font-medium mt-2">
+              And maybe that's why I believe there was a little bit of destiny in the way we met.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 4: AND OUR DREAM? ================= -->
+      <section id="section-forever" class="scroll-mt-24 space-y-8 pt-10 border-t-2 border-rose-100">
+        <div class="flex items-center gap-3 border-l-4 border-rose-500 pl-4 py-1">
+          <span class="text-2xl">🌙</span>
+          <div>
+            <h3 class="font-serif-title text-2xl sm:text-3xl font-bold text-rose-950">And Our Dream?</h3>
+            <span class="text-xs uppercase tracking-widest text-rose-500 font-bold">Forever and always</span>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="font-serif-title text-xl text-rose-800 italic">It's actually very simple.</p>
+          <p class="font-handwriting text-4xl sm:text-5xl text-rose-600 font-bold mt-2">"I want us."</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div class="md:col-span-7 font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed text-justify space-y-4">
+            <p>
+              I want to see you achieve everything you've ever dreamed of, and I want to be standing beside you when you do. I want you to see me achieve my dreams too, and I want us to always be each other's biggest support system.
+            </p>
+            <p>
+              I don't dream of a perfect relationship where nothing ever goes wrong.
+            </p>
+            <p class="font-serif-title italic font-bold text-rose-900 text-2xl">
+              I dream of a relationship where, even when things get difficult, we don't give up on each other.
+            </p>
+            <p>
+              I want us to grow together, learn together, build our lives together and become better versions of ourselves while still holding each other's hands.
+            </p>
+          </div>
+
+          <!-- PHOTO 8: Gazing Lovingly Polaroid (1000375927) -->
+          <div class="md:col-span-5 flex justify-center">
+            <div class="polaroid -rotate-2 w-full max-w-xs shadow-xl cursor-pointer" onclick="triggerSingleUpload('img-1000375927')">
+              <div class="washi-tape"></div>
+              <div class="relative w-full h-72 rounded overflow-hidden">
+                <img id="img-1000375927" data-photo-id="1000375927" data-fallback-title="Forever Us ❤️" data-fallback-subtitle="Gazing lovingly at each other" src="1000375927.jpg" alt="Looking lovingly at each other" class="w-full h-full object-cover rounded" onerror="handleImageError(this)" />
+              </div>
+              <p class="font-handwriting text-center text-sm font-bold text-rose-800 mt-2">
+                Two imperfect people choosing each other ❤️
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="font-letter text-xl sm:text-2xl text-gray-800 leading-relaxed text-justify space-y-4 pt-4">
+          <p>
+            I want countless more dates, random conversations, silly fights, late-night talks, laughter, adventures, celebrations and ordinary days that somehow become our favourite memories.
+          </p>
+          <p>
+            And one day, when we're much older, I want us to look back at that random evening in college and laugh about how neither of us knew that that one introduction would become our whole story. 🥹❤️
+          </p>
+          <blockquote class="my-6 p-6 rounded-2xl bg-gradient-to-r from-rose-100/70 via-red-50 to-pink-100/70 border-l-4 border-rose-600 font-serif-title italic text-rose-950 text-xl sm:text-2xl leading-relaxed text-center font-bold">
+            "If life gives us a thousand different chapters, I want you to be there in every one of them. No regrets. No giving up. Just two imperfect people choosing each other, again and again, through every chapter of life."
+          </blockquote>
+          
+          <div class="text-center py-6 space-y-3">
+            <p class="font-sans text-xs uppercase tracking-widest text-rose-500 font-bold">That's my dream for us, my Hubby</p>
+            <p class="font-serif-title text-2xl sm:text-3xl text-rose-950 font-bold">
+              To stay, to love, to care, to support, to grow—and to reach the end of this journey together. ❤️
+            </p>
+            <p class="font-handwriting text-3xl sm:text-4xl text-rose-600 mt-2">
+              From one random evening in college… to hopefully a lifetime of “us.” 🫶🏻
+            </p>
+            <span class="font-handwriting text-4xl sm:text-5xl text-rose-600 block pt-4">— Your Simmu ❤️</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Birthday Celebration Shower Button -->
+      <section class="text-center pt-8 border-t border-rose-100 not-prose">
+        <div class="p-6 rounded-3xl bg-rose-50/80 border border-rose-200 max-w-md mx-auto space-y-4 shadow-sm">
+          <h4 class="font-serif-title text-xl text-rose-950 font-bold">Shower Birthday Blessings 🎂✨</h4>
+          <p class="text-xs sm:text-sm text-rose-800">Tap below to shower your Gadha with hearts & colorful birthday confetti!</p>
+          <button onclick="launchCelebrationConfetti()" class="px-6 py-3 bg-gradient-to-r from-rose-500 via-pink-500 to-red-500 text-white font-medium rounded-full shadow-lg hover:shadow-rose-300 hover:scale-105 active:scale-95 transition transform text-sm sm:text-base">
+            🎉 Shower Him With Love & Confetti! 💖
+          </button>
+        </div>
+      </section>
+
+    </article>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center text-xs text-rose-800/70 space-y-1">
+      <p class="font-serif-title font-semibold text-rose-900">Crafted with endless love by Simmu for her Hubby ❤️</p>
+      <p>October 6th • The Day Destiny Wrote Our Story</p>
+    </footer>
+
+  </section>
+  </main>
+
+  <!-- Hidden single photo replacer input -->
+  <input type="file" id="singlePhotoInput" accept="image/*" class="hidden" onchange="handleSinglePhotoSelected(event)" />
+
+  <script>
+    let audioCtx = null;
+    let isMelodyPlaying = false;
+    let customAudioActive = false;
+    let detectedSongName = localStorage.getItem('saved_song_title') || 'Tum Se Hi • Jab We Met';
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Auto try alternative extensions (.jpeg, .png, .JPG) if .jpg fails
+    function handleImageError(img) {
+      const baseId = img.dataset.photoId;
+      const exts = ['.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG', '.webp'];
+      let step = parseInt(img.dataset.tryStep || '0');
+
+      if (step < exts.length - 1) {
+        step++;
+        img.dataset.tryStep = step;
+        img.src = baseId + exts[step];
+        return;
+      }
+
+      // If all failed, show the pretty fallback placeholder
+      handleImageFallback(img, img.dataset.fallbackTitle || 'Our Memory ❤️', img.dataset.fallbackSubtitle || 'Tap to choose photo');
+    }
+
+    function handleImageFallback(imgElement, title, subtitle) {
+      const parent = imgElement.parentElement;
+      if (!parent || parent.querySelector('.photo-placeholder')) return;
+
+      const placeholder = document.createElement('div');
+      placeholder.className = 'w-full h-full photo-placeholder rounded p-3 select-none';
+      placeholder.innerHTML = `
+        <span class="text-3xl mb-1">📸</span>
+        <span class="font-handwriting text-lg font-bold text-rose-800 leading-tight">${title}</span>
+        <span class="text-[11px] font-sans text-rose-600/80 mt-1">${subtitle}</span>
+        <span class="mt-2 inline-block px-2.5 py-1 rounded-full bg-rose-200/80 text-[10px] font-semibold text-rose-900 shadow-xs">
+          Tap to add photo
+        </span>
+      `;
+      imgElement.style.display = 'none';
+      parent.appendChild(placeholder);
+    }
+
+    // Handle user audio file upload
+    function handleAudioUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        let cleanName = file.name
+          .replace(/\.[^/.]+$/, "")
+          .replace(/[_-]/g, " ")
+          .trim();
+        
+        detectedSongName = cleanName;
+        localStorage.setItem('saved_song_title', cleanName);
+
+        const audioUrl = URL.createObjectURL(file);
+        const player = document.getElementById('customAudioPlayer');
+        player.src = audioUrl;
+        customAudioActive = true;
+
+        updateSongNameUI(detectedSongName);
+        
+        player.play().then(() => {
+          isMelodyPlaying = true;
+          updateMusicUI(true);
+        }).catch(err => console.log(err));
+      }
+    }
+
+    function updateSongNameUI(name) {
+      const detectedSpan = document.getElementById('detectedSongTitle');
+      const labelSpan = document.getElementById('musicLabel');
+      const displayName = name || 'Tum Se Hi • Jab We Met';
+      if (detectedSpan) detectedSpan.textContent = displayName;
+      if (labelSpan) labelSpan.textContent = displayName;
+    }
+
+    function toggleAudio() {
+      const player = document.getElementById('customAudioPlayer');
+      if (customAudioActive && player.src) {
+        if (player.paused) {
+          player.play().then(() => {
+            isMelodyPlaying = true;
+            updateMusicUI(true);
+          }).catch(err => console.log(err));
+        } else {
+          player.pause();
+          isMelodyPlaying = false;
+          updateMusicUI(false);
+        }
+      } else {
+        document.getElementById('audioFileInput').click();
+      }
+    }
+
+    function updateMusicUI(playing) {
+      const icon = document.getElementById('musicIcon');
+      const badgeIcon = document.getElementById('badgeIcon');
+      const btn = document.getElementById('musicToggleBtn');
+      if (playing) {
+        if (icon) icon.textContent = '⏸️️';
+        if (badgeIcon) badgeIcon.textContent = '🎶 Playing:';
+        if (btn) btn.classList.add('text-rose-900', 'font-bold');
+      } else {
+        if (icon) icon.textContent = '▶️';
+        if (badgeIcon) badgeIcon.textContent = '🎶 Song:';
+        if (btn) btn.classList.remove('text-rose-900', 'font-bold');
+      }
+    }
+
+    function breakSealAndOpen() {
+      initAudioContext();
+      
+      const envelope = document.getElementById('envelope');
+      const stageEnvelope = document.getElementById('envelopeStage');
+      const stageLetter = document.getElementById('letterStage');
+      const floatingControls = document.getElementById('floatingControls');
+
+      envelope.classList.add('is-opened');
+
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.55 },
+        colors: ['#e11d48', '#fb7185', '#ffd166', '#ffffff']
+      });
+
+      const player = document.getElementById('customAudioPlayer');
+      if (player.src) {
+        player.play().then(() => {
+          isMelodyPlaying = true;
+          updateMusicUI(true);
+        }).catch(e => console.log(e));
+      }
+
+      setTimeout(() => {
+        stageEnvelope.style.opacity = '0';
+        setTimeout(() => {
+          stageEnvelope.classList.add('hidden');
+          stageLetter.classList.remove('hidden');
+          floatingControls.classList.remove('hidden');
+          
+          requestAnimationFrame(() => {
+            stageLetter.style.opacity = '1';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+
+          launchCelebrationConfetti();
+        }, 500);
+      }, 1000);
+    }
+
+    function refoldEnvelope() {
+      const stageEnvelope = document.getElementById('envelopeStage');
+      const stageLetter = document.getElementById('letterStage');
+      const envelope = document.getElementById('envelope');
+      const floatingControls = document.getElementById('floatingControls');
+
+      stageLetter.style.opacity = '0';
+      floatingControls.classList.add('hidden');
+      setTimeout(() => {
+        stageLetter.classList.add('hidden');
+        envelope.classList.remove('is-opened');
+        stageEnvelope.classList.remove('hidden');
+
+        requestAnimationFrame(() => {
+          stageEnvelope.style.opacity = '1';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }, 400);
+    }
+
+    let targetImgIdForUpload = null;
+
+    function triggerSingleUpload(imgId) {
+      targetImgIdForUpload = imgId;
+      document.getElementById('singlePhotoInput').click();
+    }
+
+    function handleSinglePhotoSelected(event) {
+      const file = event.target.files[0];
+      if (file && targetImgIdForUpload) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          applyImageToElement(targetImgIdForUpload, e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function applyImageToElement(imgId, dataUrl) {
+      const img = document.getElementById(imgId);
+      if (!img) return;
+      img.src = dataUrl;
+      img.style.display = 'block';
+      const placeholder = img.parentElement.querySelector('.photo-placeholder');
+      if (placeholder) placeholder.remove();
+
+      try {
+        localStorage.setItem('saved_photo_' + img.dataset.photoId, dataUrl);
+      } catch(err) {
+        // Storage full fallback
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Restore cached photo uploads if available
+      document.querySelectorAll('img[data-photo-id]').forEach(img => {
+        const saved = localStorage.getItem('saved_photo_' + img.dataset.photoId);
+        if (saved) {
+          img.src = saved;
+          img.style.display = 'block';
+          const ph = img.parentElement.querySelector('.photo-placeholder');
+          if (ph) ph.remove();
+        }
+      });
+
+      if (detectedSongName) {
+        updateSongNameUI(detectedSongName);
+      }
+
+      // Check audio files in directory
+      const player = document.getElementById('customAudioPlayer');
+      const songSources = [
+        'song.mp3', 'song.m4a', 'song.wav', 'song.ogg',
+        'tum_se_hi.mp3', 'tum-se-hi.mp3', 'tumsehi.mp3'
+      ];
+      
+      function tryLoadAudio(idx) {
+        if (idx >= songSources.length) return;
+        const testAudio = new Audio();
+        testAudio.src = songSources[idx];
+        testAudio.addEventListener('canplaythrough', () => {
+          player.src = songSources[idx];
+          customAudioActive = true;
+          if (!localStorage.getItem('saved_song_title')) {
+            detectedSongName = 'Tum Se Hi • Jab We Met';
+            updateSongNameUI(detectedSongName);
+          }
+        }, { once: true });
+        testAudio.addEventListener('error', () => {
+          tryLoadAudio(idx + 1);
+        }, { once: true });
+      }
+
+      tryLoadAudio(0);
+    });
+
+    function launchCelebrationConfetti() {
+      confetti({
+        particleCount: 90,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#f43f5e', '#ec4899', '#fb7185', '#fbbf24', '#ffffff']
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 60,
+          angle: 60,
+          spread: 50,
+          origin: { x: 0 },
+          colors: ['#e11d48', '#fda4af', '#f43f5e']
+        });
+      }, 250);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 60,
+          angle: 120,
+          spread: 50,
+          origin: { x: 1 },
+          colors: ['#e11d48', '#fda4af', '#f43f5e']
+        });
+      }, 400);
+    }
+
+    function spawnAmbientHearts() {
+      const container = document.getElementById('ambient-hearts-layer');
+      const symbols = ['❤', '💖', '✨', '🌸', '🫶🏻', '💕'];
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'ambient-heart text-xs sm:text-sm';
+        heart.style.left = (Math.random() * 92 + 4) + 'vw';
+        heart.style.animationDuration = (Math.random() * 4 + 7) + 's';
+        heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        container.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 9500);
+      }, 800);
+    }
+    spawnAmbientHearts();
+  </script>
+</body>
+</html>
